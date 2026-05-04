@@ -1,0 +1,24 @@
+{
+  "name": "php-reference-lens",
+  "displayName": "PHP Reference Lens",
+  "description": "Shows reference counts above PHP functions, classes, and methods",
+  "version": "0.1.0",
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Programming Languages"],
+  "activationEvents": ["onLanguage:php"],
+  "main": "./extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "PHP Reference Lens",
+      "properties": {
+        "phpReferenceLens.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable/disable reference count code lens"
+        }
+      }
+    }
+  }
+}
