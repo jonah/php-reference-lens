@@ -4,6 +4,7 @@ const FUNCTION_PATTERN = /^\s*(?:(?:public|protected|private|static|abstract|fin
 const CLASS_PATTERN = /^\s*(?:(?:abstract|final)\s+)?class\s+(\w+)/gm;
 const INTERFACE_PATTERN = /^\s*interface\s+(\w+)/gm;
 const TRAIT_PATTERN = /^\s*trait\s+(\w+)/gm;
+const PROPERTY_PATTERN = /^\s*(?:(?:public|protected|private|static|readonly)\s+)+(?:\??\w[\w\\|]*\s+)?\$(\w+)\s*[;=]/gm;
 
 class PHPReferenceLensProvider {
     constructor() {
@@ -26,7 +27,7 @@ class PHPReferenceLensProvider {
         const text = document.getText();
         const lenses = [];
 
-        const patterns = [FUNCTION_PATTERN, CLASS_PATTERN, INTERFACE_PATTERN, TRAIT_PATTERN];
+        const patterns = [FUNCTION_PATTERN, CLASS_PATTERN, INTERFACE_PATTERN, TRAIT_PATTERN, PROPERTY_PATTERN];
         for (const pattern of patterns) {
             pattern.lastIndex = 0;
             let match;
@@ -51,7 +52,8 @@ class PHPReferenceLensProvider {
         let nameMatch = text.match(/function\s+(\w+)/) ||
                          text.match(/class\s+(\w+)/) ||
                          text.match(/interface\s+(\w+)/) ||
-                         text.match(/trait\s+(\w+)/);
+                         text.match(/trait\s+(\w+)/) ||
+                         text.match(/\$(\w+)\s*[;=]/);
 
         if (!nameMatch) {
             lens.command = { title: '', command: '' };
